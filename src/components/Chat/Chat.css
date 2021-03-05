@@ -1,3 +1,31 @@
 .chat__container{
     flex: 3;
+    display: flex;
+    flex-direction: column;
+
+}
+.chat__Header{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #eaeaea;
+
+}
+.chat__Header_Left{
+    display: flex;
+}
+.chat__header_date{
+    color: #c4c4c4;
+    font-size: small;
+}
+.chat__Header_Text{
+    margin-left: 15px;
+}
+.chat__Body{
+    background-color: #ecf3fc;
+    flex: 1;
+    padding: 20px;
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
 }

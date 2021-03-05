@@ -1,0 +1,28 @@
+.messages__body{
+    display: flex;
+    background-color: white;
+    border-radius: 20px;
+    width: fit-content;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: -20px;
+    flex-wrap: wrap;
+
+}
+.messages__container{
+    margin-bottom: 20px;
+}
+.messages__date{
+    color: #8e8c8c;
+    font-size: x-small;
+    margin-left: 20px;
+    margin-top: 8px;
+}
+.chat__received {
+    background-color: #dcf8c6;
+}
+.chat__received_container{
+    align-self: flex-end;
+}
