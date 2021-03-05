@@ -1,0 +1,8 @@
+.Room__container{
+    display: flex;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+.Room__textContent{
+    margin-left: 10px;
+}
