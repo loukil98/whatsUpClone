@@ -5,23 +5,27 @@ import SearchIcon from '@material-ui/icons/Search';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Messages from "../Messages/Messages";
+import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
+import MicIcon from '@material-ui/icons/Mic';
 
 function Chat(props) {
     const messages = [
-        {name:"Loukil Ghassen",messageText:"Hey guys",messageDate:new Date().toDateString(),received:false},
-        {name:"Bahloul Ahmed",messageText:"ya Rojlaa",messageDate:new Date().toDateString(),received:true},
+        {name: "Loukil Ghassen", messageText: "Hey guys", messageDate: new Date().toDateString(), received: false},
+        {name: "Bahloul Ahmed", messageText: "ya Rojlaa", messageDate: new Date().toDateString(), received: true},
 
 
     ]
     const renderMessages = () => {
-        return(
-        messages.map((message)=>{
-            return(
-               <Messages name={message.name} messageText={message.messageText} messageDate={message.messageDate} received={message.received}/>
-            )
+        return (
+            messages.map((message) => {
+                return (
+                    <Messages name={message.name} messageText={message.messageText} messageDate={message.messageDate}
+                              received={message.received}/>
+                )
 
-        })
-        )}
+            })
+        )
+    }
     return (
         <div className="chat__container">
             <div className="chat__Header">
@@ -48,6 +52,19 @@ function Chat(props) {
 
             <div className="chat__Body">
                 {renderMessages()}
+            </div>
+            <div className="chat__footer">
+                <IconButton>
+                    <SentimentSatisfiedIcon/>
+                </IconButton>
+                <form>
+                    <input type="text" placeholder="type a message"/>
+                    <button type="submit"></button>
+                </form>
+                <IconButton>
+                    <MicIcon/>
+                </IconButton>
+
             </div>
         </div>
     );
