@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Chat.css'
 import {Avatar, IconButton} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
@@ -12,19 +12,25 @@ import axios from 'axios';
 function Chat(props) {
     const [messages, setMessages] = useState([])
     const [input, setInput] = useState("")
+    const dummyDiv = useRef()
     useEffect(() => {
         axios.get("http://localhost:5000/")
             .then((res) => {
                 setMessages(res.data)
+                dummyDiv.current.scrollIntoView()
+
             })
             .catch((err) => {
                 console.log("an error occured ", err)
             })
 
+
     }, [])
+
 
     const renderMessages = () => {
         return (
+
             messages.map((message) => {
                 return (
                     <Messages key={message._id} name={message.name} messageText={message.messageText}
@@ -39,14 +45,15 @@ function Chat(props) {
         e.preventDefault()
         const message = {
             name: "Bahloul Ahmed",
-            messageText:input ,
-            messageDate : new Date().toUTCString() ,
-            received : true
+            messageText: input,
+            messageDate: new Date().toUTCString(),
+            received: true
         }
-        axios.post("http://localhost:5000/",message)
+        axios.post("http://localhost:5000/", message)
             .then(res => {
-                setMessages([...messages,res.data])
+                setMessages([...messages, res.data])
                 setInput('')
+                dummyDiv.current.scrollIntoView({behavior:"smooth"})
             })
             .catch(e => {
                 console.log(e)
@@ -77,7 +84,8 @@ function Chat(props) {
             </div>
 
             <div className="chat__Body">
-                {renderMessages()}
+                    {renderMessages()}
+                    <div ref={dummyDiv}></div>
             </div>
             <div className="chat__footer">
                 <IconButton>
