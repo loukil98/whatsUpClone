@@ -11,10 +11,3 @@
   background-color: #ededed;
 
 }
-.app_body{
-  width: 90vw;
-  height: 90vh;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  display: flex;
-  background-color: white;
-}

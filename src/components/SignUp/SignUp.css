@@ -1,0 +1,84 @@
+.SignUp__container {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.SignUp__container > p {
+    color: #474747;
+    font-size: large;
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+
+.SignUp__container > h5 {
+    margin-bottom: 40px;
+}
+
+.SignUp__labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.SignUp__inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.form_container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 5px;
+
+}
+
+form > div {
+    margin-bottom: 20px;
+
+
+}
+
+form > div > label {
+    margin-right: 10px;
+    color: #474747;
+    opacity: 0.7;
+}
+
+
+form > div > input {
+    height: 10px;
+    padding: 10px;
+    flex: 1;
+}
+
+.password {
+    margin-right: -49px;
+}
+.SignUp__signUpBtn{
+    align-self: center;
+    background-color: #3361bb;
+    color: rgb(234, 234, 234);
+    padding: 10px;
+    width: 80%;
+    font-size: medium;
+    outline-width: 0;
+    border: none;
+    margin-top: 20px;
+}
+.iconButton{
+    background-color: #8e8c8c;
+}

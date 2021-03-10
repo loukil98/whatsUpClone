@@ -8,6 +8,11 @@ import Messages from "../Messages/Messages";
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
 import MicIcon from '@material-ui/icons/Mic';
 import axios from 'axios';
+import io from "socket.io-client";
+
+const socket = io('http://localhost:5000/', {
+    transports: ["websocket", "polling"]
+})
 
 function Chat(props) {
     const [messages, setMessages] = useState([])
@@ -25,9 +30,13 @@ function Chat(props) {
             })
 
 
+        return () => socket.disconnect();
+
+
     }, [])
-
-
+    useEffect(() => {
+        dummyDiv.current.scrollIntoView()
+    }, [messages])
     const renderMessages = () => {
         return (
 
@@ -53,12 +62,17 @@ function Chat(props) {
             .then(res => {
                 setMessages([...messages, res.data])
                 setInput('')
-                dummyDiv.current.scrollIntoView({behavior:"smooth"})
+                dummyDiv.current.scrollIntoView({behavior: "smooth"})
+                socket.emit('msgSent', res.data)
             })
             .catch(e => {
                 console.log(e)
             })
     }
+    socket.on('msgSent', (data) => {
+        setMessages([...messages, data])
+    })
+
     return (
         <div className="chat__container">
             <div className="chat__Header">
@@ -84,8 +98,8 @@ function Chat(props) {
             </div>
 
             <div className="chat__Body">
-                    {renderMessages()}
-                    <div ref={dummyDiv}></div>
+                {renderMessages()}
+                <div ref={dummyDiv}></div>
             </div>
             <div className="chat__footer">
                 <IconButton>

@@ -15,9 +15,9 @@ function Sidebar(props) {
     ]
     const renderRooms = () => {
         return(
-    rooms.map( room => {
+    rooms.map( (room,index) => {
         return (
-            <Room name={room.name} lastMessage={room.lastMessage} avatar={room.avatar} />
+            <Room key={index} name={room.name} lastMessage={room.lastMessage} avatar={room.avatar} />
         )
     })
         )}

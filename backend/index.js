@@ -3,9 +3,18 @@ const app = express()
 const mongoose = require('mongoose')
 const homeRoot = require("./Routes/homeRoot")
 const cors = require("cors")
+const http = require('http').Server(app);
+const io = require('socket.io')(http, {
+        cors: {
+            origin: "http://localhost:3000",
+            methods: ["GET", "POST"]
+        }
+    }
+);
+
 
 //listening
- app.listen(5000, () => {
+http.listen(5000, () => {
     console.log("helloo from server")
 })
 
@@ -13,11 +22,19 @@ const cors = require("cors")
 //middlewares
 app.use(express.json())
 app.use(cors())
-app.use("/",homeRoot)
+app.use("/", homeRoot)
 
 
 //socket
-
+io.on('connection', (socket) => {
+    console.log('a user connected',socket.id);
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+    socket.on('msgSent',(data)=>{
+        socket.broadcast.emit('msgSent',data)
+    })
+});
 
 
 //Db connection
