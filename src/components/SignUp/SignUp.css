@@ -38,7 +38,7 @@
     width: 100%;
     justify-content: flex-start;
 }
-form {
+.form_container > form {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -46,20 +46,20 @@ form {
 
 }
 
-form > div {
+.form_container > form > div {
     margin-bottom: 20px;
 
 
 }
 
-form > div > label {
+.form_container > form > div > label {
     margin-right: 10px;
     color: #474747;
     opacity: 0.7;
 }
 
 
-form > div > input {
+.form_container > form > div > input {
     height: 10px;
     padding: 10px;
     flex: 1;
@@ -80,5 +80,4 @@ form > div > input {
     margin-top: 20px;
 }
 .iconButton{
-
 }

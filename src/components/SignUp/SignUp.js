@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import "./SignUp.css"
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import IconButton from "@material-ui/core/IconButton";
+import axios from "axios";
 
 function SignUp(props) {
     const [user, setUser] = useState({
-        prenom: "",
-        nom: "",
+        firstName: "",
+        lastName: "",
         email: "",
-        mdp: "",
-        confirmMdp: ""
+        password: "",
     })
     const [mdpVisible, setmdpVisible] = useState(false)
     const handleChange = (e) => {
@@ -17,7 +17,13 @@ function SignUp(props) {
     }
     const handleSubmit = e => {
         e.preventDefault()
-        
+        axios.post("http://localhost:5000/signUp",user)
+            .then((response) => {
+                props.history.push("/")
+            })
+            .catch(e => {
+                console.log(e)
+            })
     }
     return (
         <div className="SignUp__container">
@@ -26,12 +32,12 @@ function SignUp(props) {
             <div className="form_container">
                 <form onSubmit={e => handleSubmit(e)}>
                     <div>
-                        <label>Prenom</label><input type="text" name="nom" placeholder="votre nom" value={user.nom}
+                        <label>Nom</label><input type="text" name="lastName" placeholder="votre nom" value={user.lastName}
                                                     onChange={(e) => handleChange(e)}/>
                     </div>
                     <div>
-                        <label>Nom</label><input type="text" name="prenom" placeholder="votre prenom"
-                                                 value={user.prenom} onChange={handleChange}/>
+                        <label>Prenom</label><input type="text" name="firstName" placeholder="votre prenom"
+                                                 value={user.firstName} onChange={handleChange}/>
                     </div>
                     <div>
                         <label>E-mail</label><input type="email" name="email" placeholder="votre e-mail"
@@ -40,20 +46,13 @@ function SignUp(props) {
                     <div className='password'>
                         <label>Mot de passe</label>
 
-                        <input type={mdpVisible ? 'text' : "password"} className="tryin" name="mdp"
-                               placeholder="votre mot de passe " value={user.mdp} onChange={handleChange}/>
+                        <input type={mdpVisible ? 'text' : "password"} className="tryin" name="password"
+                               placeholder="votre mot de passe " value={user.password} onChange={handleChange}/>
                         <IconButton className="iconButton" onClick={() => setmdpVisible(!mdpVisible)}>
                             <VisibilityIcon/>
                         </IconButton>
                     </div>
 
-                    <div>
-                        <label>Confirmer votre mot de passe</label><input type="password"
-                                                                          placeholder="confirmer le mot de passe "
-                                                                          name="confirmMdp"
-                                                                          value={user.confirmMdp}
-                                                                          onChange={handleChange}/>
-                    </div>
                     <button className="SignUp__signUpBtn" type="submit">Sign Up</button>
                 </form>
             </div>
