@@ -19,7 +19,7 @@ function Chat(props) {
     const [input, setInput] = useState("")
     const dummyDiv = useRef()
     useEffect(() => {
-        axios.get("http://localhost:5000/")
+        axios.get("http://localhost:5000/",{withCredentials: true})
             .then((res) => {
                 setMessages(res.data)
                 dummyDiv.current.scrollIntoView()

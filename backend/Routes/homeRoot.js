@@ -1,7 +1,8 @@
 const express = require("express")
 const Router = express.Router()
 const Messages = require("../Models/messageModel")
-Router.get("/",async(req,res)=>{
+const auth = require("../auth")
+Router.get("/",auth,async(req,res)=>{
     try {
         const messages = await Messages.find()
         res.status(200).send(messages)

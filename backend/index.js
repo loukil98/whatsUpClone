@@ -3,6 +3,8 @@ const app = express()
 const mongoose = require('mongoose')
 const homeRoot = require("./Routes/homeRoot")
 const signUpRoot = require("./Routes/signUpRoot")
+const loginRoot = require('./Routes/loginRoute')
+const logoutRoot = require('./Routes/logoutRoot')
 const cors = require("cors")
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
@@ -12,7 +14,7 @@ const io = require('socket.io')(http, {
         }
     }
 );
-
+const cookieParser = require("cookie-parser")
 
 //listening
 http.listen(5000, () => {
@@ -22,11 +24,13 @@ http.listen(5000, () => {
 
 //middlewares
 app.use(express.json())
-app.use(cors())
-
+app.use(cors({ origin: true, credentials: true }))
+app.use(cookieParser())
 //Routes
 app.use("/", homeRoot)
 app.use("/signUp",signUpRoot)
+app.use("/login",loginRoot)
+app.use("/logout",logoutRoot)
 
 //socket
 io.on('connection', (socket) => {
