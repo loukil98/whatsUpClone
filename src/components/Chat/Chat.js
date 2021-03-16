@@ -19,30 +19,28 @@ function Chat(props) {
     const [input, setInput] = useState("")
     const dummyDiv = useRef()
     useEffect(() => {
-        axios.get("http://localhost:5000/",{withCredentials: true})
+        axios.get("http://localhost:5000/", {withCredentials: true})
             .then((res) => {
                 setMessages(res.data)
                 dummyDiv.current.scrollIntoView()
-
             })
             .catch((err) => {
                 console.log("an error occured ", err)
             })
-
-
-        return () => socket.disconnect();
-
-
+        return () => {
+            socket.disconnect();
+        }
     }, [])
     useEffect(() => {
         dummyDiv.current.scrollIntoView()
     }, [messages])
     const renderMessages = () => {
         return (
+            messages.map( (message) => {
 
-            messages.map((message) => {
                 return (
-                    <Messages key={message._id} name={message.name} messageText={message.messageText}
+                    <Messages key={message._id} sender={message.sender.firstName.concat(" ",message.sender.lastName)}
+                              messageText={message.messageText}
                               messageDate={message.messageDate}
                               received={message.received}/>
                 )
@@ -53,12 +51,11 @@ function Chat(props) {
     const sendMessage = (e) => {
         e.preventDefault()
         const message = {
-            name: "Bahloul Ahmed",
             messageText: input,
             messageDate: new Date().toUTCString(),
             received: true
         }
-        axios.post("http://localhost:5000/", message)
+        axios.post("http://localhost:5000/", message,{withCredentials: true})
             .then(res => {
                 setMessages([...messages, res.data])
                 setInput('')

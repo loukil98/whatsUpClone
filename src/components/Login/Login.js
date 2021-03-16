@@ -1,22 +1,27 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "./Login.css"
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import IconButton from "@material-ui/core/IconButton";
 import axios from "axios";
+import authContext  from "../../context/AuthContextProvider";
 
 function Login(props) {
+    const {getLoggedIn} = useContext(authContext)
     const [user, setUser] = useState({
         email: "",
         password: "",
     })
     const [mdpVisible, setmdpVisible] = useState(false)
+
+
     const handleChange = (e) => {
         setUser({...user, [e.target.name]: e.target.value})
     }
     const handleSubmit = e => {
         e.preventDefault()
         axios.post("http://localhost:5000/login",user,{withCredentials: true})
-            .then( (res) => {
+            .then(async (res) => {
+                await getLoggedIn()
                 props.history.push('/')
             })
             .catch(e=>{

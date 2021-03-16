@@ -5,6 +5,9 @@ const homeRoot = require("./Routes/homeRoot")
 const signUpRoot = require("./Routes/signUpRoot")
 const loginRoot = require('./Routes/loginRoute')
 const logoutRoot = require('./Routes/logoutRoot')
+const loggedInRoot = require('./Routes/loggedInRoot')
+const userRoot = require('./Routes/userRoot')
+
 const cors = require("cors")
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
@@ -31,6 +34,9 @@ app.use("/", homeRoot)
 app.use("/signUp",signUpRoot)
 app.use("/login",loginRoot)
 app.use("/logout",logoutRoot)
+app.use("/loggedIn",loggedInRoot)
+app.use("/users",userRoot)
+
 
 //socket
 io.on('connection', (socket) => {

@@ -1,22 +1,22 @@
 const express = require("express")
 const Router = express.Router()
 const Messages = require("../Models/messageModel")
+const Users = require("../Models/userModel")
 const auth = require("../auth")
 Router.get("/",auth,async(req,res)=>{
     try {
-        const messages = await Messages.find()
+        const messages = await Messages.find().populate("sender","firstName lastName")
         res.status(200).send(messages)
-
     }catch (e) {
         console.log("eroorrr :",e)
         res.status(404).send("messages not found")
     }
 })
 
-Router.post("/",async(req,res)=>{
+Router.post("/",auth,async(req,res)=>{
 
-    const message = new Messages(req.body)
-
+    const user = await Users.findOne({_id:req.userId})
+    const message = new Messages({...req.body,sender:user})
     try {
         const savedMessage = await message.save()
         res.status(201).send(savedMessage)
@@ -24,7 +24,6 @@ Router.post("/",async(req,res)=>{
     }catch (e) {
         console.log("eroorrr :",e)
         res.status(404).send("error occured")
-
     }
 })
 

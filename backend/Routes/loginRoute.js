@@ -8,7 +8,6 @@ Router.post("/", async (req, res) => {
     try {
         const {email, password} = req.body
         const existingUser = await User.findOne({email})
-        console.log(existingUser)
         if (!existingUser) {
             return res.status(404).send("email  are incorrect")
         }
