@@ -11,7 +11,7 @@ function MainApp(props) {
     const {loggedIn} = useContext(authContext)
     useEffect(()=>{
         !loggedIn && history.push('/login')
-            },[])
+            },[history,loggedIn])
     return (
         <div className="MainApp__body">
             <Sidebar/>

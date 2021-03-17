@@ -21,7 +21,8 @@ Router.post("/", async (req, res) => {
         }, process.env.secretPassword)
         res.cookie("token", token, {
             httpOnly: true })
-        res.status(200).send()
+        console.log(verified)
+        res.status(200).send(existingUser)
 
     } catch (e) {
         console.log(e)

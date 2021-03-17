@@ -6,13 +6,12 @@ const auth = require("../auth")
 Router.get("/",auth,async(req,res)=>{
     try {
         const messages = await Messages.find().populate("sender","firstName lastName")
+            .sort([["messageDate",-1]]).limit(20)
         res.status(200).send(messages)
     }catch (e) {
-        console.log("eroorrr :",e)
         res.status(404).send("messages not found")
     }
 })
-
 Router.post("/",auth,async(req,res)=>{
 
     const user = await Users.findOne({_id:req.userId})

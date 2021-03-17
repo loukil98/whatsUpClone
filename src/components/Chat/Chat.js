@@ -9,14 +9,14 @@ import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
 import MicIcon from '@material-ui/icons/Mic';
 import axios from 'axios';
 import io from "socket.io-client";
-
+import {useSelector} from "react-redux";
 const socket = io('http://localhost:5000/', {
     transports: ["websocket", "polling"]
 })
-
 function Chat(props) {
     const [messages, setMessages] = useState([])
     const [input, setInput] = useState("")
+    const currentUser = useSelector(state => state.user)
     const dummyDiv = useRef()
     useEffect(() => {
         axios.get("http://localhost:5000/", {withCredentials: true})
@@ -32,19 +32,25 @@ function Chat(props) {
         }
     }, [])
     useEffect(() => {
+        socket.on('msgSent', (data) => {
+            setMessages([...messages, data])
+        })
         dummyDiv.current.scrollIntoView()
+
+        return () => {
+            socket.off("msgSent");
+        }
+
     }, [messages])
     const renderMessages = () => {
         return (
             messages.map( (message) => {
-
                 return (
                     <Messages key={message._id} sender={message.sender.firstName.concat(" ",message.sender.lastName)}
                               messageText={message.messageText}
                               messageDate={message.messageDate}
                               received={message.received}/>
                 )
-
             })
         )
     }
@@ -66,10 +72,6 @@ function Chat(props) {
                 console.log(e)
             })
     }
-    socket.on('msgSent', (data) => {
-        setMessages([...messages, data])
-    })
-
     return (
         <div className="chat__container">
             <div className="chat__Header">

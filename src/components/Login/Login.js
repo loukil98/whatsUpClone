@@ -1,9 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import "./Login.css"
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import IconButton from "@material-ui/core/IconButton";
 import axios from "axios";
 import authContext  from "../../context/AuthContextProvider";
+import {useDispatch} from "react-redux";
+import {userLoggedIn} from "../../redux/actions/userActions";
 
 function Login(props) {
     const {getLoggedIn} = useContext(authContext)
@@ -12,6 +14,7 @@ function Login(props) {
         password: "",
     })
     const [mdpVisible, setmdpVisible] = useState(false)
+    const dispatch = useDispatch()
 
 
     const handleChange = (e) => {
@@ -22,6 +25,7 @@ function Login(props) {
         axios.post("http://localhost:5000/login",user,{withCredentials: true})
             .then(async (res) => {
                 await getLoggedIn()
+                dispatch(userLoggedIn(res.data))
                 props.history.push('/')
             })
             .catch(e=>{
